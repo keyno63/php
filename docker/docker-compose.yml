@@ -4,7 +4,7 @@ services:
     container_name: "docker_php74"
     build: ./
     volumes:
-      - ./etc/php.ini:/etc/php.ini
+      - ../etc/php.ini:/etc/php.ini
       - ../src:/opt/project/src
       - ../tests:/opt/project/tests
       - ../phpunit.xml:/opt/project/phpunit.xml
