@@ -15,9 +15,9 @@ class DBConnect
      */
     private string $pass;
     /**
-     * @var string
+     * @var PDO
      */
-    private string $dbh;
+    private PDO $dbh;
 
     public function __construct($dns, $user, $pass, $dbh = null)
     {

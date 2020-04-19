@@ -1,13 +1,14 @@
-#/bin/env php
+#!/bin/env php
 <?php
+set_include_path("/opt/project");
 
 require '/vendor/autoload.php';
 require_once 'src/lib/DBConnect.php';
 
 $dsn = sprintf(
     'mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4',
-    "127.0.0.1",
-    "23306",
+    "mysql57_phptest",
+    "3306",
     "sample_db"
 );
 $user = "user";

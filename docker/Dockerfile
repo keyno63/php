@@ -11,7 +11,23 @@ RUN apt-get update && apt-get install -y \
     git \
     libicu-dev \
     libzip-dev \
-    zip
+    libpng-dev \
+    libmcrypt-dev \
+    zlib1g-dev \
+    libxml2-dev \
+    libonig-dev \
+    graphviz \
+    zip \
+    mariadb-client
+
+RUN  apt-get install -y \
+    && docker-php-ext-install zip \
+    && docker-php-ext-install intl \
+    && docker-php-ext-configure gd \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install mysqli \
+    && docker-php-ext-install pdo \
+    && docker-php-ext-install pdo_mysql
 
 # Composer
 ENV COMPOSER_HOME /tmp
