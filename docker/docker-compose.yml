@@ -1,0 +1,28 @@
+version: '3'
+services:
+  docker_php74:
+    container_name: "docker_php74"
+    build: ./
+    volumes:
+      - ./etc/php.ini:/etc/php.ini
+      - ../src:/opt/project/src
+      - ../tests:/opt/project/tests
+      - ../phpunit.xml:/opt/project/phpunit.xml
+      - ../composer.json:/opt/project/composer.json
+    ports:
+      - 10080:80
+    tty: true
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql57_phptest
+    restart: always
+    ports:
+      - 23306:3306
+    tty: true
+    environment:
+      MYSQL_DATABASE: sample_db
+      MYSQL_USER: user
+      MYSQL_ROOT: root
+      MYSQL_PASSWORD: user_pass
+      MYSQL_ROOT_PASSWORD: root_pass
