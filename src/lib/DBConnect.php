@@ -3,6 +3,7 @@
 namespace MyApp\lib;
 
 use PDO;
+use PDOStatement;
 
 class DBConnect
 {
@@ -22,6 +23,10 @@ class DBConnect
      * @var PDO
      */
     private PDO $dbh;
+    /**
+     * @var PDOStatement
+     */
+    private PDOStatement $state;
 
     public function __construct($dns, $user, $pass, $dbh = null)
     {
@@ -39,9 +44,15 @@ class DBConnect
         try {
             $state = $this->dbh->prepare($sql);
             $result = $state->execute();
+            $this->state = $state;
         } catch (\Exception $e) {
             echo $e->getMessage();
         }
         return $result;
+    }
+
+    public function query()
+    {
+        return $this->state->fetchAll(PDO::FETCH_ASSOC);
     }
 }

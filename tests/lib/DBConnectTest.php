@@ -3,14 +3,9 @@
 
 namespace MyApp\lib;
 
-require_once "/opt/project/src/lib/DBConnect.php";
-
 use PHPUnit\Framework\TestCase;
 use PDO;
 use PDOStatement;
-use IteratorAggregate;
-use ArrayIterator;
-use DBConnect;
 
 class DBConnectTest extends TestCase
 {
@@ -24,32 +19,30 @@ class DBConnectTest extends TestCase
             ->disallowMockingUnknownTypes()
             ->getMock();
 
-        $stub->method('prepare')
-            ->willReturn(new class extends PDOStatement {
-                function execute($input_parameters = null)
-                {
-                    return true;
-                }
-            });
+        $stubstate = $this->getMockBuilder(PDOStatement::class)
+            ->disableOriginalConstructor()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->getMock();
+        $stubstate->method('execute')
+            ->willReturn(true);
+        $stubstate->method('fetchAll')
+            ->willReturn([
+                [
+                    'name' => 'apple',
+                    'color' => 'red',
+                    'calories' => 150,
+                ],
+                [
+                    'name' => 'banana',
+                    'color' => 'yellow',
+                    'calories' => 250,
+                ],
+            ]);
 
-        $stub->method('query')
-            ->willReturn(new class extends PDOStatement implements IteratorAggregate {
-                function getIterator()
-                {
-                    return new ArrayIterator([
-                        [
-                            'name' => 'apple',
-                            'color' => 'red',
-                            'calories' => 150,
-                        ],
-                        [
-                            'name' => 'banana',
-                            'color' => 'yellow',
-                            'calories' => 250,
-                        ],
-                    ]);
-                }
-            });
+        $stub->method('prepare')
+            ->willReturn($stubstate);
+
         $this->stub = $stub;
     }
 
@@ -60,9 +53,20 @@ class DBConnectTest extends TestCase
     {
         $target = new DBConnect("sample", "user", "pass", $this->stub);
         $ret = $target->select();
+        $row = $target->query();
 
-        $this->assertEquals("apple\tred\t150\n", $ret[0]);
-        $this->assertEquals("banana\tyellow\t250\n", $ret[1]);
+        echo "query row:" . PHP_EOL;
+        var_dump($row);
+        $this->assertEquals([
+            'name' => 'apple',
+            'color' => 'red',
+            'calories' => 150,
+        ], $row[0]);
+        $this->assertEquals([
+            'name' => 'banana',
+            'color' => 'yellow',
+            'calories' => 250,
+        ], $row[1]);
         $this->assertEquals(true, $ret);
     }
 
