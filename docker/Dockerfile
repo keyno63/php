@@ -34,4 +34,5 @@ ENV COMPOSER_HOME /tmp
 COPY --from=composer:1.9.2 /usr/bin/composer /usr/bin/composer
 
 # composer files
-RUN composer require --dev "phpunit/phpunit:^7.2"
+COPY composer.json /
+RUN composer require --dev
