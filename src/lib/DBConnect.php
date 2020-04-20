@@ -2,6 +2,8 @@
 
 namespace lib;
 
+use PDO;
+
 class DBConnect
 {
     /**
