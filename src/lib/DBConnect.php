@@ -1,6 +1,6 @@
 <?php
 
-namespace lib;
+namespace MyApp\lib;
 
 use PDO;
 
@@ -30,5 +30,18 @@ class DBConnect
         $this->pass = $pass;
 
         $this->dbh = $dbh ?? new PDO($this->dsn, $this->user, $this->pass);
+    }
+
+    public function select()
+    {
+        $sql = "SELECT * FROM table";
+        $result = false;
+        try {
+            $state = $this->dbh->prepare($sql);
+            $result = $state->execute();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+        return $result;
     }
 }
