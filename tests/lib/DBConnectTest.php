@@ -19,14 +19,14 @@ class DBConnectTest extends TestCase
             ->disallowMockingUnknownTypes()
             ->getMock();
 
-        $stubstate = $this->getMockBuilder(PDOStatement::class)
+        $stubState = $this->getMockBuilder(PDOStatement::class)
             ->disableOriginalConstructor()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
             ->getMock();
-        $stubstate->method('execute')
+        $stubState->method('execute')
             ->willReturn(true);
-        $stubstate->method('fetchAll')
+        $stubState->method('fetchAll')
             ->willReturn([
                 [
                     'name' => 'apple',
@@ -41,7 +41,7 @@ class DBConnectTest extends TestCase
             ]);
 
         $stub->method('prepare')
-            ->willReturn($stubstate);
+            ->willReturn($stubState);
 
         $this->stub = $stub;
     }
