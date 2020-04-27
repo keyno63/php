@@ -1,7 +1,5 @@
 #!/bin/env php
 <?php
-set_include_path("/opt/project");
-
 require '/vendor/autoload.php';
 
 
@@ -16,8 +14,8 @@ $s3Client = S3Client::factory([
         'key' => $key,
         'secret' => $secret
     ],
-    'region' => 'us-east-2', //リージョンは日本
-    'version' => 'latest' //バケットのバージョニングは最新
+    'region' => 'us-east-2',
+    'version' => 'latest'
 ]);
 
 $bucketName = "kofujiw-s3bucket";
