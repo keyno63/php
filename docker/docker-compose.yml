@@ -8,7 +8,6 @@ services:
       - ../src:/opt/project/src
       - ../tests:/opt/project/tests
       - ../phpunit.xml:/opt/project/phpunit.xml
-      - ../composer.json:/opt/project/composer.json
     ports:
       - 10080:80
     networks:
