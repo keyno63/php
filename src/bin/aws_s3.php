@@ -22,12 +22,18 @@ $s3Client = S3Client::factory([
 
 $bucketName = "kofujiw-s3bucket";
 $key = "sample1.txt";
-$content = $s3Client->getObject(
-    [
-        'Bucket' => $bucketName,
-        'Key'    => $key,
-    ]
-);
+
+try {
+    $content = $s3Client->getObject(
+        [
+            'Bucket' => $bucketName,
+            'Key' => $key,
+        ]
+    );
+} catch (\Exception $e) {
+    echo "failed get file = [$key], reason: " . $e->getMessage();
+    exit(1);
+}
 $content['Body']->rewind();
 
 $fileName = "/tmp/file.txt";
