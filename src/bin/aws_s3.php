@@ -19,7 +19,7 @@ $s3Client = S3Client::factory([
 ]);
 
 $bucketName = "kofujiw-s3bucket";
-$key = "sample1.txt";
+$key = "sample.txt";
 
 try {
     $content = $s3Client->getObject(
