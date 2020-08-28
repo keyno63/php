@@ -13,4 +13,4 @@ $dsn = sprintf(
 );
 $user = "user";
 $pass = "user_pass";
-$db = new DBConnect($dsn, $user, $pass);
+$db = new PDO($dsn, $user, $pass);

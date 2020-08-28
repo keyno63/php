@@ -11,18 +11,16 @@ services:
     ports:
       - 10080:80
     networks:
-      - default
       - sample-network
     tty: true
 
-  mysql:
-    image: mysql:5.7
-    container_name: mysql57_phptest
+  mysql8_phptest:
+    image: mysql:8
+    container_name: mysql8_phptest
     restart: always
     ports:
       - 23306:3306
     networks:
-      - default
       - sample-network
     tty: true
     environment:
