@@ -17,6 +17,8 @@ services:
   mysql8_phptest:
     image: mysql:8
     container_name: mysql8_phptest
+    volumes:
+    - ./etc/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
     restart: always
     ports:
       - 23306:3306
@@ -32,4 +34,5 @@ services:
 
 networks:
   sample-network:
-    driver: bridge
+    external:
+      name: bridge
