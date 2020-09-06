@@ -17,8 +17,7 @@ services:
   mysql8_phptest:
     image: mysql:8
     container_name: mysql8_phptest
-    volumes:
-    - ./etc/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
       - 23306:3306
@@ -34,5 +33,4 @@ services:
 
 networks:
   sample-network:
-    external:
-      name: bridge
+    external: true
